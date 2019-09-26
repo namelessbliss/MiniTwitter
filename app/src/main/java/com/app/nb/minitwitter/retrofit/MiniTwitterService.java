@@ -1,8 +1,8 @@
 package com.app.nb.minitwitter.retrofit;
 
-import com.app.nb.minitwitter.RequestLogin;
-import com.app.nb.minitwitter.RequestSignUp;
-import com.app.nb.minitwitter.ResponseAuth;
+import com.app.nb.minitwitter.retrofit.request.RequestLogin;
+import com.app.nb.minitwitter.retrofit.request.RequestSignUp;
+import com.app.nb.minitwitter.retrofit.response.ResponseAuth;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -17,7 +17,7 @@ public interface MiniTwitterService {
      * @param requestLogin
      * @return
      */
-    @POST("/auth/login")
+    @POST("auth/login")
     Call<ResponseAuth> doLogin(@Body RequestLogin requestLogin);
 
     /**
@@ -25,6 +25,6 @@ public interface MiniTwitterService {
      * @param requestSignUp
      * @return
      */
-    @POST("/auth/signup")
+    @POST("auth/signup")
     Call<ResponseAuth> doSignUp(@Body RequestSignUp requestSignUp);
 }

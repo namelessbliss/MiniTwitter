@@ -1,4 +1,4 @@
-package com.app.nb.minitwitter;
+package com.app.nb.minitwitter.retrofit.response;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

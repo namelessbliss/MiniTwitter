@@ -1,4 +1,4 @@
-package com.app.nb.minitwitter;
+package com.app.nb.minitwitter.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.app.nb.minitwitter.R;
+import com.app.nb.minitwitter.ui.MainActivity;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 

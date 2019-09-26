@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorAzul"
     app:layout_constraintVertical_chainStyle="packed"
-    tools:context=".SignUpActivity">
+    tools:context=".ui.SignUpActivity">
 
     <ImageView
         android:id="@+id/imageView"
