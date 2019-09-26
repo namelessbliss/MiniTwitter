@@ -4,4 +4,7 @@
     <string name="hint_password">Contraseña</string>
     <string name="btn_login">Iniciar Sesion</string>
     <string name="text_create_acc">Si aun no tienes cuenta, registrate aqui.</string>
+    <string name="text_go_login">Si ya dispone de una cuenta, inicie sesion aqui.</string>
+    <string name="btn_signup">Registrarme</string>
+    <string name="hint_username">Nombre de ususario</string>
 </resources>
