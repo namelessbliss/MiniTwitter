@@ -11,6 +11,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.nb.minitwitter.R;
+import com.app.nb.minitwitter.common.Constants;
+import com.app.nb.minitwitter.common.SharedPreferencesManager;
 import com.app.nb.minitwitter.retrofit.MiniTwitterClient;
 import com.app.nb.minitwitter.retrofit.MiniTwitterService;
 import com.app.nb.minitwitter.retrofit.request.RequestLogin;
@@ -91,6 +93,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 public void onResponse(Call<ResponseAuth> call, Response<ResponseAuth> response) {
                     if (response.isSuccessful()) { // si el codigo de respuesta esta entr el 200 y 300
                         Toast.makeText(MainActivity.this, "Inicio de sesion completado", Toast.LENGTH_SHORT).show();
+
+                        //Almacena preferences del login
+                        SharedPreferencesManager.setStringValue(Constants.PREF_TOKEN, response.body().getToken());
+                        SharedPreferencesManager.setStringValue(Constants.PREF_USERNAME, response.body().getUsername());
+                        SharedPreferencesManager.setStringValue(Constants.PREF_EMAIL, response.body().getEmail());
+                        SharedPreferencesManager.setStringValue(Constants.PREF_PHOTO_URL, response.body().getPhotoUrl());
+                        SharedPreferencesManager.setStringValue(Constants.PREF_CREATED, response.body().getCreated());
+                        SharedPreferencesManager.setBooleanValue(Constants.PREF_ACTIVE, response.body().getActive());
+
+
                         Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
                         startActivity(intent);
 

@@ -11,6 +11,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.nb.minitwitter.R;
+import com.app.nb.minitwitter.common.Constants;
+import com.app.nb.minitwitter.common.SharedPreferencesManager;
 import com.app.nb.minitwitter.retrofit.MiniTwitterClient;
 import com.app.nb.minitwitter.retrofit.MiniTwitterService;
 import com.app.nb.minitwitter.retrofit.request.RequestSignUp;
@@ -97,6 +99,16 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 @Override
                 public void onResponse(Call<ResponseAuth> call, Response<ResponseAuth> response) {
                     if (response.isSuccessful()) {
+                        Toast.makeText(SignUpActivity.this, "Inicio de sesion completado", Toast.LENGTH_SHORT).show();
+
+                        //Almacena preferences del registro
+                        SharedPreferencesManager.setStringValue(Constants.PREF_TOKEN, response.body().getToken());
+                        SharedPreferencesManager.setStringValue(Constants.PREF_USERNAME, response.body().getUsername());
+                        SharedPreferencesManager.setStringValue(Constants.PREF_EMAIL, response.body().getEmail());
+                        SharedPreferencesManager.setStringValue(Constants.PREF_PHOTO_URL, response.body().getPhotoUrl());
+                        SharedPreferencesManager.setStringValue(Constants.PREF_CREATED, response.body().getCreated());
+                        SharedPreferencesManager.setBooleanValue(Constants.PREF_ACTIVE, response.body().getActive());
+
                         Intent i = new Intent(SignUpActivity.this, DashboardActivity.class);
                         startActivity(i);
                         finish();

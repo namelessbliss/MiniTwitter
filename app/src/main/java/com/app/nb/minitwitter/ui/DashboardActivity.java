@@ -1,15 +1,17 @@
 package com.app.nb.minitwitter.ui;
 
 import android.os.Bundle;
-
-import com.app.nb.minitwitter.R;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.annotation.NonNull;
-
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.app.nb.minitwitter.R;
+import com.app.nb.minitwitter.common.Constants;
+import com.app.nb.minitwitter.common.SharedPreferencesManager;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class DashboardActivity extends AppCompatActivity {
     private TextView mTextMessage;
@@ -41,6 +43,10 @@ public class DashboardActivity extends AppCompatActivity {
         BottomNavigationView navView = findViewById(R.id.nav_view);
         mTextMessage = findViewById(R.id.message);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        String token = SharedPreferencesManager.getStringValue(Constants.PREF_TOKEN);
+
+        Toast.makeText(this, "Token:" + token, Toast.LENGTH_SHORT).show();
     }
 
 }
