@@ -18,6 +18,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Ocultar barra de toolbar
+        getSupportActionBar().hide();
+
         btnLogin = findViewById(R.id.buttonLogin);
         tvGoSignUp = findViewById(R.id.textViewSignUp);
 
