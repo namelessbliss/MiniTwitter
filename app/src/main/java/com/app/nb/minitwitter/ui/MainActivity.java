@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnLogin = findViewById(R.id.buttonLogin);
         tvGoSignUp = findViewById(R.id.textViewSignUp);
         etEmail = findViewById(R.id.editTextEmail);
-        etEmail = findViewById(R.id.editTextPassword);
+        etPassword = findViewById(R.id.editTextPassword);
     }
 
     private void events() {
