@@ -2,6 +2,7 @@ package com.app.nb.minitwitter.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -114,6 +115,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         finish();
                     } else {
                         Toast.makeText(SignUpActivity.this, "Algo salio mal", Toast.LENGTH_SHORT).show();
+                        Log.e("Response",response.code()+"");
                     }
                 }
 
