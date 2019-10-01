@@ -101,7 +101,9 @@ public class TweetListFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Tweet>> call, Response<List<Tweet>> response) {
                 if (response.isSuccessful()) {
-
+                    tweetList = response.body();
+                    adapter = new TweetRecyclerViewAdapter(getActivity(), tweetList);
+                    recyclerView.setAdapter(adapter);
                 } else {
                     Toast.makeText(getActivity(), "No se pudo cargar los tweets", Toast.LENGTH_SHORT).show();
                 }
@@ -113,7 +115,6 @@ public class TweetListFragment extends Fragment {
             }
         });
 
-        adapter = new TweetRecyclerViewAdapter(getActivity(), tweetList);
-        recyclerView.setAdapter(adapter);
+
     }
 }
