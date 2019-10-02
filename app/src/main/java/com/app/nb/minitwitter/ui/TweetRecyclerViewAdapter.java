@@ -8,11 +8,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.nb.minitwitter.R;
 import com.app.nb.minitwitter.common.Constants;
 import com.app.nb.minitwitter.common.SharedPreferencesManager;
+import com.app.nb.minitwitter.data.TweetViewModel;
 import com.app.nb.minitwitter.retrofit.response.Like;
 import com.app.nb.minitwitter.retrofit.response.Tweet;
 import com.bumptech.glide.Glide;
@@ -25,11 +28,14 @@ public class TweetRecyclerViewAdapter extends RecyclerView.Adapter<TweetRecycler
     private List<Tweet> mValues;
     private String username;
 
+    private TweetViewModel tweetViewModel;
+
     public TweetRecyclerViewAdapter(Context context, List<Tweet> items) {
         mValues = items;
         this.context = context;
         //Obtiene el nombre usado almcenado en shared preferences
         username = SharedPreferencesManager.getStringValue(Constants.PREF_USERNAME);
+        tweetViewModel = ViewModelProviders.of((FragmentActivity) context).get(TweetViewModel.class);
     }
 
     @Override
@@ -62,6 +68,14 @@ public class TweetRecyclerViewAdapter extends RecyclerView.Adapter<TweetRecycler
             // Cambia el color del contador de likes
             holder.tvLikeCount.setTextColor(context.getResources().getColor(R.color.colorAzulDark));
             holder.tvLikeCount.setTypeface(null, Typeface.NORMAL);
+
+            holder.ivLike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Invoca metodo like del ViewModel
+                    tweetViewModel.likeTweet(holder.mItem.getId());
+                }
+            });
 
             for (Like like : holder.mItem.getLikes()) {
                 if (like.getUsername().equals(username)) {
