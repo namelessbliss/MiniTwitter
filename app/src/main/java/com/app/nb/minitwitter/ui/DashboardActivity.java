@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.app.nb.minitwitter.R;
 import com.app.nb.minitwitter.common.Constants;
@@ -25,13 +26,26 @@ public class DashboardActivity extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+            Fragment fragment = null;
+
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    return true;
+                    fragment = TweetListFragment.newInstance(Constants.TWEET_LIST_ALL);
+                    break;
                 case R.id.navigation_tweets_like:
-                    return true;
+                    fragment = TweetListFragment.newInstance(Constants.TWEET_LIST_FAVS);
+                    break;
                 case R.id.navigation_profile:
-                    return true;
+                    break;
+            }
+
+            if (fragment != null) {
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragmentContainer, fragment)
+                        .commit();
+                return true;
             }
             return false;
         }
@@ -57,7 +71,10 @@ public class DashboardActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
-        getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer, new TweetListFragment()).commit();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.fragmentContainer, TweetListFragment.newInstance(Constants.TWEET_LIST_ALL))
+                .commit();
 
         //Set imagen del usuario
         String photoUrl = SharedPreferencesManager.getStringValue(Constants.PREF_PHOTO_URL);
