@@ -3,17 +3,22 @@ package com.app.nb.minitwitter.ui;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.app.nb.minitwitter.R;
+import com.app.nb.minitwitter.common.Constants;
+import com.app.nb.minitwitter.common.SharedPreferencesManager;
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class DashboardActivity extends AppCompatActivity {
 
     private FloatingActionButton fab;
+    private ImageView ivAvatar;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -40,6 +45,7 @@ public class DashboardActivity extends AppCompatActivity {
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         fab = findViewById(R.id.fab);
+        ivAvatar = findViewById(R.id.imageViewUser);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +58,15 @@ public class DashboardActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         getSupportFragmentManager().beginTransaction().add(R.id.fragmentContainer, new TweetListFragment()).commit();
+
+        //Set imagen del usuario
+        String photoUrl = SharedPreferencesManager.getStringValue(Constants.PREF_PHOTO_URL);
+
+        if (!photoUrl.isEmpty()) {
+            Glide.with(this)
+                    .load(Constants.API_MINITWIITER_FILES_URL + photoUrl)
+                    .into(ivAvatar);
+        }
     }
 
 }
