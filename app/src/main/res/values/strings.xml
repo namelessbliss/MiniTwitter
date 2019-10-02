@@ -12,4 +12,5 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_prueba">PruebaActivity</string>
+    <string name="hint_mensaje_nuevo_tweet">¿Qué hay de nuevo?</string>
 </resources>
