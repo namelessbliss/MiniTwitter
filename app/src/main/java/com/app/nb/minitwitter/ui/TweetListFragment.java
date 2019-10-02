@@ -7,11 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.nb.minitwitter.R;
+import com.app.nb.minitwitter.data.TweetViewModel;
 import com.app.nb.minitwitter.retrofit.response.Tweet;
 
 import java.util.List;
@@ -28,6 +31,8 @@ public class TweetListFragment extends Fragment {
     private TweetRecyclerViewAdapter adapter;
 
     private List<Tweet> tweetList;
+
+    private TweetViewModel tweetViewModel;
 
 
     /**
@@ -51,6 +56,8 @@ public class TweetListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        tweetViewModel = ViewModelProviders.of(getActivity()).get(TweetViewModel.class);
+
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
@@ -71,6 +78,9 @@ public class TweetListFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
 
+            adapter = new TweetRecyclerViewAdapter(getActivity(), tweetList);
+            recyclerView.setAdapter(adapter);
+
             loadTweetData();
 
         }
@@ -79,7 +89,15 @@ public class TweetListFragment extends Fragment {
 
 
     private void loadTweetData() {
-        adapter = new TweetRecyclerViewAdapter(getActivity(), tweetList);
-        recyclerView.setAdapter(adapter);
+
+        tweetViewModel.getTweets().observe(this, new Observer<List<Tweet>>() {
+            @Override
+            public void onChanged(List<Tweet> tweets) { //Cuando ocurre un cambio a traves del viewModel
+                tweetList = tweets;
+                adapter.setData(tweetList);
+            }
+        });
+
+
     }
 }

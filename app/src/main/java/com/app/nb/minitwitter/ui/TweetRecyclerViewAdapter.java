@@ -41,38 +41,47 @@ public class TweetRecyclerViewAdapter extends RecyclerView.Adapter<TweetRecycler
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
+        if (mValues != null) { //Solo se carga si la lista existe
+            holder.mItem = mValues.get(position);
 
-        holder.tvUsername.setText(holder.mItem.getUser().getUsername());
-        holder.tvMessage.setText(holder.mItem.getMensaje());
-        holder.tvLikeCount.setText(holder.mItem.getLikes().size() + "");
+            holder.tvUsername.setText(holder.mItem.getUser().getUsername());
+            holder.tvMessage.setText(holder.mItem.getMensaje());
+            holder.tvLikeCount.setText(holder.mItem.getLikes().size() + "");
 
-        String photoUrl = holder.mItem.getUser().getPhotoUrl();
-        if (!photoUrl.equals("")) {
-            //Cargando imagen con Glide
-            Glide.with(context)
-                    .load("https://www.minitwitter.com/apiv1/uploads/photos/" + photoUrl)
-                    .into(holder.ivAvatar);
-        }
-
-
-        for (Like like : holder.mItem.getLikes()) {
-            if (like.getUsername().equals(username)) {
+            String photoUrl = holder.mItem.getUser().getPhotoUrl();
+            if (!photoUrl.equals("")) {
+                //Cargando imagen con Glide
                 Glide.with(context)
-                        .load(R.drawable.ic_like_purple)
-                        .into(holder.ivLike);
-                // Cambia el color del contador de likes
-                holder.tvLikeCount.setTextColor(context.getResources().getColor(R.color.purple));
-                holder.tvLikeCount.setTypeface(null, Typeface.BOLD);
-                break;
+                        .load("https://www.minitwitter.com/apiv1/uploads/photos/" + photoUrl)
+                        .into(holder.ivAvatar);
+            }
+
+
+            for (Like like : holder.mItem.getLikes()) {
+                if (like.getUsername().equals(username)) {
+                    Glide.with(context)
+                            .load(R.drawable.ic_like_purple)
+                            .into(holder.ivLike);
+                    // Cambia el color del contador de likes
+                    holder.tvLikeCount.setTextColor(context.getResources().getColor(R.color.purple));
+                    holder.tvLikeCount.setTypeface(null, Typeface.BOLD);
+                    break;
+                }
             }
         }
+    }
 
+    public void setData(List<Tweet> tweetList) {
+        this.mValues = tweetList;
+        notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        if (mValues != null) // Devuelve cero en caso la lista no exista
+            return mValues.size();
+        else
+            return 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
