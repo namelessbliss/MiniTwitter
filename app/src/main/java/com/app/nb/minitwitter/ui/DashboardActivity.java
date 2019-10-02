@@ -66,6 +66,10 @@ public class DashboardActivity extends AppCompatActivity {
             Glide.with(this)
                     .load(Constants.API_MINITWIITER_FILES_URL + photoUrl)
                     .into(ivAvatar);
+        } else {
+            Glide.with(this)
+                    .load(R.drawable.ic_account_circle_grey_24dp)
+                    .into(ivAvatar);
         }
     }
 

@@ -44,7 +44,7 @@ public class TweetRecyclerViewAdapter extends RecyclerView.Adapter<TweetRecycler
         if (mValues != null) { //Solo se carga si la lista existe
             holder.mItem = mValues.get(position);
 
-            holder.tvUsername.setText(holder.mItem.getUser().getUsername());
+            holder.tvUsername.setText("@" + holder.mItem.getUser().getUsername());
             holder.tvMessage.setText(holder.mItem.getMensaje());
             holder.tvLikeCount.setText(holder.mItem.getLikes().size() + "");
 
@@ -56,6 +56,12 @@ public class TweetRecyclerViewAdapter extends RecyclerView.Adapter<TweetRecycler
                         .into(holder.ivAvatar);
             }
 
+            Glide.with(context)
+                    .load(R.drawable.ic_like)
+                    .into(holder.ivLike);
+            // Cambia el color del contador de likes
+            holder.tvLikeCount.setTextColor(context.getResources().getColor(R.color.colorAzulDark));
+            holder.tvLikeCount.setTypeface(null, Typeface.NORMAL);
 
             for (Like like : holder.mItem.getLikes()) {
                 if (like.getUsername().equals(username)) {
