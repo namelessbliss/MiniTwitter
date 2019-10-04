@@ -3,7 +3,7 @@
 
     <group android:checkableBehavior="none"> <!--No permite que al marcar muestro color diferente-->
         <item
-            android:id="action_delete_tweet"
+            android:id="@+id/delete_tweet"
             android:icon="@drawable/ic_delete_24dp"
             android:title="Eliminar Tweet" />
     </group>

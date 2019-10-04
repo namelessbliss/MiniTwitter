@@ -48,7 +48,7 @@ public class BottomModalTweetFragment extends BottomSheetDialogFragment {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 int id = menuItem.getItemId();
 
-                if (id = R.id.action_delete_tweet) {
+                if (id == R.id.delete_tweet) {
                     tweetViewModel.deleteTweet(idTweetEliminar);
                     getDialog().dismiss();
                     return true;
@@ -58,7 +58,7 @@ public class BottomModalTweetFragment extends BottomSheetDialogFragment {
             }
         });
 
-        return view
+        return view;
     }
 
     @Override
