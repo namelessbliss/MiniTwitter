@@ -1,12 +1,15 @@
 package com.app.nb.minitwitter.data;
 
 import android.app.Application;
+import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.app.nb.minitwitter.retrofit.response.Tweet;
+import com.app.nb.minitwitter.ui.BottomModalTweetFragment;
 
 import java.util.List;
 
@@ -24,6 +27,20 @@ public class TweetViewModel extends AndroidViewModel {
 
     public LiveData<List<Tweet>> getTweets() {
         return tweets;
+    }
+
+    /**
+     * Metodo para mostrar el cuadro de dialogo
+     *
+     * @param context
+     * @param idTweet
+     */
+    public void openDialogTweetMenu(Context context, int idTweet) {
+        BottomModalTweetFragment dialogTweet = BottomModalTweetFragment.newInstance(idTweet);
+
+        AppCompatActivity activity = (AppCompatActivity) context;
+
+        dialogTweet.show(activity.getSupportFragmentManager(), "BottomModalTweetFragment");
     }
 
     public LiveData<List<Tweet>> getNewTweets() {
@@ -49,7 +66,7 @@ public class TweetViewModel extends AndroidViewModel {
         return getFavTweets();
     }
 
-    public void deleteTweet(int idTweet){
+    public void deleteTweet(int idTweet) {
         tweetRepository.deleteTweet(idTweet);
     }
 
