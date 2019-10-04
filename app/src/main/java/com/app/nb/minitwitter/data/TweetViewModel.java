@@ -48,4 +48,10 @@ public class TweetViewModel extends AndroidViewModel {
         getNewTweets();
         return getFavTweets();
     }
+
+    public void deleteTweet(int idTweet){
+        tweetRepository.deleteTweet(idTweet);
+    }
+
+
 }
