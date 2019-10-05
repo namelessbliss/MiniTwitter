@@ -11,21 +11,32 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.app.nb.minitwitter.R;
+import com.app.nb.minitwitter.common.Constants;
 import com.app.nb.minitwitter.data.ProfileViewModel;
+import com.app.nb.minitwitter.retrofit.response.ResponseUserProfile;
+import com.bumptech.glide.Glide;
 
 public class ProfileFragment extends Fragment {
 
-    private ProfileViewModel mViewModel;
+    private ProfileViewModel profileViewModel;
 
     private ImageView ivAvatar;
-    private EditText etUser, etPass, etEmail;
+    private EditText etUser, etPass, etEmail, etWeb, etDesc;
     private Button btnSave, btnChangePass;
 
     public static ProfileFragment newInstance() {
         return new ProfileFragment();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        profileViewModel = ViewModelProviders.of(this).get(ProfileViewModel.class);
     }
 
     @Override
@@ -37,6 +48,8 @@ public class ProfileFragment extends Fragment {
         etEmail = view.findViewById(R.id.editTextEmail);
         etPass = view.findViewById(R.id.editTextCurrentPassword);
         etUser = view.findViewById(R.id.editTextUsername);
+        etWeb = view.findViewById(R.id.editTextWebsite);
+        etDesc = view.findViewById(R.id.editTextDescripcion);
         btnSave = view.findViewById(R.id.buttonSave);
         btnChangePass = view.findViewById(R.id.buttonChangePass);
 
@@ -55,14 +68,28 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        //ViewModel
+        profileViewModel.userProfileLiveData.observe(getActivity(), new Observer<ResponseUserProfile>() {
+            @Override
+            public void onChanged(ResponseUserProfile responseUserProfile) {
+                etUser.setText(responseUserProfile.getUsername());
+                etEmail.setText(responseUserProfile.getEmail());
+                etDesc.setText(responseUserProfile.getDescripcion());
+                etWeb.setText(responseUserProfile.getWebsite());
+                if (!responseUserProfile.getPhotoUrl().isEmpty()) {
+                    Glide.with(getActivity())
+                            .load(Constants.API_MINITWIITER_FILES_URL + responseUserProfile.getPhotoUrl())
+                            .into(ivAvatar);
+                }
+            }
+        });
+
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(ProfileViewModel.class);
-
     }
 
 }
