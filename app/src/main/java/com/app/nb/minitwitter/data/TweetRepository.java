@@ -143,6 +143,9 @@ public class TweetRepository {
                 if (response.isSuccessful()) {
                     List<Tweet> listaClonada = new ArrayList<>();
                     for (int i = 0; i < allTweets.getValue().size(); i++) {
+                        //Si el tweet de la iteracion tiene  el mismo valor que el id que se pasa
+                        // entonces no se añade a esta nueva lista clonada
+                        // de esa forma se excluye de la nueva lista que se esta formando :)
                         if (allTweets.getValue().get(i).getId() != idTweet) {
                             listaClonada.add(new Tweet(allTweets.getValue().get(i)));
                         }

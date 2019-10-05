@@ -69,6 +69,21 @@ public class TweetRecyclerViewAdapter extends RecyclerView.Adapter<TweetRecycler
             holder.tvLikeCount.setTextColor(context.getResources().getColor(R.color.colorAzulDark));
             holder.tvLikeCount.setTypeface(null, Typeface.NORMAL);
 
+            // Desaparecido por defecto
+            holder.ivShowMenu.setVisibility(View.GONE);
+
+            //Muestra iv del menu solo si el tweet pertenece al usuario logeado
+            if (holder.mItem.getUser().getUsername().equals(username)) {
+                holder.ivShowMenu.setVisibility(View.VISIBLE);
+            }
+            //Evento para mostrar el menu
+            holder.ivShowMenu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    tweetViewModel.openDialogTweetMenu(context, holder.mItem.getId());
+                }
+            });
+
             holder.ivLike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -108,6 +123,7 @@ public class TweetRecyclerViewAdapter extends RecyclerView.Adapter<TweetRecycler
         public final View mView;
         public final ImageView ivAvatar;
         public final ImageView ivLike;
+        public final ImageView ivShowMenu;
         public final TextView tvUsername;
         public final TextView tvMessage;
         public final TextView tvLikeCount;
@@ -118,6 +134,7 @@ public class TweetRecyclerViewAdapter extends RecyclerView.Adapter<TweetRecycler
             mView = view;
             ivAvatar = view.findViewById(R.id.imageViewAvatar);
             ivLike = view.findViewById(R.id.imageViewLike);
+            ivShowMenu = view.findViewById(R.id.imageViewShowMenu);
             tvUsername = view.findViewById(R.id.textViewUsername);
             tvMessage = view.findViewById(R.id.textViewMessage);
             tvLikeCount = view.findViewById(R.id.textViewLike);

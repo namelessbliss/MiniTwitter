@@ -25,6 +25,7 @@ public class BottomModalTweetFragment extends BottomSheetDialogFragment {
         BottomModalTweetFragment fragment = new BottomModalTweetFragment();
         Bundle args = new Bundle();
         args.putInt(Constants.ARG_TWEET_ID, idTweet);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -64,7 +65,7 @@ public class BottomModalTweetFragment extends BottomSheetDialogFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        tweetViewModel = ViewModelProviders.of(this).get(TweetViewModel.class);
+        tweetViewModel = ViewModelProviders.of(getActivity()).get(TweetViewModel.class);
 
     }
 
