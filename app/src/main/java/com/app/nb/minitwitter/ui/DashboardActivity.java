@@ -35,12 +35,15 @@ public class DashboardActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     fragment = TweetListFragment.newInstance(Constants.TWEET_LIST_ALL);
+                    fab.show();
                     break;
                 case R.id.navigation_tweets_like:
                     fragment = TweetListFragment.newInstance(Constants.TWEET_LIST_FAVS);
+                    fab.hide();
                     break;
                 case R.id.navigation_profile:
                     fragment = new ProfileFragment();
+                    fab.hide();
                     break;
             }
 

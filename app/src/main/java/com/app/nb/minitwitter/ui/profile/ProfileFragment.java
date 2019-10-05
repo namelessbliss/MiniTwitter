@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,6 +18,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.app.nb.minitwitter.R;
 import com.app.nb.minitwitter.common.Constants;
 import com.app.nb.minitwitter.data.ProfileViewModel;
+import com.app.nb.minitwitter.retrofit.request.RequestUserProfile;
 import com.app.nb.minitwitter.retrofit.response.ResponseUserProfile;
 import com.bumptech.glide.Glide;
 
@@ -27,6 +29,7 @@ public class ProfileFragment extends Fragment {
     private ImageView ivAvatar;
     private EditText etUser, etPass, etEmail, etWeb, etDesc;
     private Button btnSave, btnChangePass;
+    private boolean firstLoadingData = true;
 
     public static ProfileFragment newInstance() {
         return new ProfileFragment();
@@ -57,7 +60,24 @@ public class ProfileFragment extends Fragment {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO
+                String username = etUser.getText().toString();
+                String email = etEmail.getText().toString();
+                String descripcion = etDesc.getText().toString();
+                String website = etWeb.getText().toString();
+                String password = etPass.getText().toString();
+
+                if (username.isEmpty())
+                    etUser.setError("El nombre de usuario es requerido");
+                else if (email.isEmpty())
+                    etEmail.setError("El email es requerido");
+                else if (password.isEmpty())
+                    etPass.setError("La contraseña es requerida");
+                else {
+                    RequestUserProfile requestUserProfile = new RequestUserProfile(username, email, descripcion, website, password);
+                    profileViewModel.updateProfile(requestUserProfile);
+                    Toast.makeText(getActivity(), "Enviando Informacion al servidor", Toast.LENGTH_SHORT).show();
+                    btnSave.setEnabled(false);
+                }
             }
         });
 
@@ -72,15 +92,24 @@ public class ProfileFragment extends Fragment {
         profileViewModel.userProfileLiveData.observe(getActivity(), new Observer<ResponseUserProfile>() {
             @Override
             public void onChanged(ResponseUserProfile responseUserProfile) {
+
                 etUser.setText(responseUserProfile.getUsername());
                 etEmail.setText(responseUserProfile.getEmail());
                 etDesc.setText(responseUserProfile.getDescripcion());
                 etWeb.setText(responseUserProfile.getWebsite());
+
+                if (!firstLoadingData) {
+                    btnSave.setEnabled(true);
+                    Toast.makeText(getActivity(), "Datos guardados correctamente", Toast.LENGTH_SHORT).show();
+
+                }
+
                 if (!responseUserProfile.getPhotoUrl().isEmpty()) {
                     Glide.with(getActivity())
                             .load(Constants.API_MINITWIITER_FILES_URL + responseUserProfile.getPhotoUrl())
                             .into(ivAvatar);
                 }
+                firstLoadingData = false;
             }
         });
 
