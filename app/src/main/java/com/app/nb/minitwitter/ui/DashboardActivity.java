@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import com.app.nb.minitwitter.R;
 import com.app.nb.minitwitter.common.Constants;
 import com.app.nb.minitwitter.common.SharedPreferencesManager;
+import com.app.nb.minitwitter.ui.profile.ProfileFragment;
 import com.app.nb.minitwitter.ui.tweets.NuevoTweetDialogFragment;
 import com.app.nb.minitwitter.ui.tweets.TweetListFragment;
 import com.bumptech.glide.Glide;
@@ -39,6 +40,7 @@ public class DashboardActivity extends AppCompatActivity {
                     fragment = TweetListFragment.newInstance(Constants.TWEET_LIST_FAVS);
                     break;
                 case R.id.navigation_profile:
+                    fragment = new ProfileFragment();
                     break;
             }
 
