@@ -1,6 +1,8 @@
 package com.app.nb.minitwitter.retrofit;
 
 import com.app.nb.minitwitter.retrofit.request.RequestCreateTweet;
+import com.app.nb.minitwitter.retrofit.request.RequestUserProfile;
+import com.app.nb.minitwitter.retrofit.response.ResponseUserProfile;
 import com.app.nb.minitwitter.retrofit.response.Tweet;
 import com.app.nb.minitwitter.retrofit.response.TweetDeleted;
 
@@ -11,9 +13,12 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface AuthTwitterService {
+
+    // Tweets
 
     /**
      * Peticion para obtener todos los tweets registrados
@@ -42,5 +47,24 @@ public interface AuthTwitterService {
 
     @DELETE("tweets/{idTweet}")
     Call<TweetDeleted> deleteTweet(@Path("idTweet") int idTweet);
+
+    // Users
+
+    /**
+     * Obtiene informacion del usuario
+     *
+     * @return
+     */
+    @GET("users/profile")
+    Call<ResponseUserProfile> getProfile();
+
+    /**
+     * Actualiza informacion del usuario
+     *
+     * @param requestUserProfile
+     * @return
+     */
+    @PUT("users/profile")
+    Call<ResponseUserProfile> updateProfile(@Body RequestUserProfile requestUserProfile);
 
 }
