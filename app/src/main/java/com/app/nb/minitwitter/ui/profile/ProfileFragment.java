@@ -89,6 +89,13 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        ivAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO invocar seleccion de la foto
+            }
+        });
+
         //ViewModel
         profileViewModel.userProfileLiveData.observe(getActivity(), new Observer<ResponseUserProfile>() {
             @Override
