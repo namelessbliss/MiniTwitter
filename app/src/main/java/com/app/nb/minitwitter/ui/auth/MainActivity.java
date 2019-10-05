@@ -1,4 +1,4 @@
-package com.app.nb.minitwitter.ui;
+package com.app.nb.minitwitter.ui.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +17,7 @@ import com.app.nb.minitwitter.retrofit.MiniTwitterClient;
 import com.app.nb.minitwitter.retrofit.MiniTwitterService;
 import com.app.nb.minitwitter.retrofit.request.RequestLogin;
 import com.app.nb.minitwitter.retrofit.response.ResponseAuth;
+import com.app.nb.minitwitter.ui.DashboardActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;

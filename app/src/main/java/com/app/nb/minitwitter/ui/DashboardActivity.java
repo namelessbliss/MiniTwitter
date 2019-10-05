@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment;
 import com.app.nb.minitwitter.R;
 import com.app.nb.minitwitter.common.Constants;
 import com.app.nb.minitwitter.common.SharedPreferencesManager;
+import com.app.nb.minitwitter.ui.tweets.NuevoTweetDialogFragment;
+import com.app.nb.minitwitter.ui.tweets.TweetListFragment;
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;

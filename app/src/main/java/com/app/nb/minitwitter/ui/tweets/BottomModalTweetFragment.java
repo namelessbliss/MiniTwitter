@@ -1,4 +1,4 @@
-package com.app.nb.minitwitter.ui;
+package com.app.nb.minitwitter.ui.tweets;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

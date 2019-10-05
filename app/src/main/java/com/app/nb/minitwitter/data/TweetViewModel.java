@@ -9,7 +9,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.app.nb.minitwitter.retrofit.response.Tweet;
-import com.app.nb.minitwitter.ui.BottomModalTweetFragment;
+import com.app.nb.minitwitter.ui.tweets.BottomModalTweetFragment;
 
 import java.util.List;
 
