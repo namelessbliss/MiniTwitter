@@ -21,6 +21,7 @@ import com.app.nb.minitwitter.data.ProfileViewModel;
 import com.app.nb.minitwitter.retrofit.request.RequestUserProfile;
 import com.app.nb.minitwitter.retrofit.response.ResponseUserProfile;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 public class ProfileFragment extends Fragment {
 
@@ -107,6 +108,10 @@ public class ProfileFragment extends Fragment {
                 if (!responseUserProfile.getPhotoUrl().isEmpty()) {
                     Glide.with(getActivity())
                             .load(Constants.API_MINITWIITER_FILES_URL + responseUserProfile.getPhotoUrl())
+                            .dontAnimate()
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .skipMemoryCache(true)
+                            .centerCrop()
                             .into(ivAvatar);
                 }
                 firstLoadingData = false;

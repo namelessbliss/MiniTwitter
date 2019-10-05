@@ -16,6 +16,7 @@ import com.app.nb.minitwitter.ui.profile.ProfileFragment;
 import com.app.nb.minitwitter.ui.tweets.NuevoTweetDialogFragment;
 import com.app.nb.minitwitter.ui.tweets.TweetListFragment;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -89,10 +90,18 @@ public class DashboardActivity extends AppCompatActivity {
         if (!photoUrl.isEmpty()) {
             Glide.with(this)
                     .load(Constants.API_MINITWIITER_FILES_URL + photoUrl)
+                    .dontAnimate()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .centerCrop()
                     .into(ivAvatar);
         } else {
             Glide.with(this)
                     .load(R.drawable.ic_account_circle_grey_24dp)
+                    .dontAnimate()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .centerCrop()
                     .into(ivAvatar);
         }
     }
