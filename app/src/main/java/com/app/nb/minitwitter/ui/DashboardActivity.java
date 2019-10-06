@@ -14,10 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.app.nb.minitwitter.R;
 import com.app.nb.minitwitter.common.Constants;
 import com.app.nb.minitwitter.common.SharedPreferencesManager;
+import com.app.nb.minitwitter.data.ProfileViewModel;
 import com.app.nb.minitwitter.ui.profile.ProfileFragment;
 import com.app.nb.minitwitter.ui.tweets.NuevoTweetDialogFragment;
 import com.app.nb.minitwitter.ui.tweets.TweetListFragment;
@@ -35,6 +37,7 @@ public class DashboardActivity extends AppCompatActivity implements PermissionLi
 
     private FloatingActionButton fab;
     private ImageView ivAvatar;
+    private ProfileViewModel profileViewModel;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -98,6 +101,9 @@ public class DashboardActivity extends AppCompatActivity implements PermissionLi
         //Set imagen del usuario
         String photoUrl = SharedPreferencesManager.getStringValue(Constants.PREF_PHOTO_URL);
 
+
+        profileViewModel = ViewModelProviders.of(this).get(ProfileViewModel.class);
+
         if (!photoUrl.isEmpty()) {
             Glide.with(this)
                     .load(Constants.API_MINITWIITER_FILES_URL + photoUrl)
@@ -132,7 +138,7 @@ public class DashboardActivity extends AppCompatActivity implements PermissionLi
                         cursor.moveToFirst();
                         int imagenIndex = cursor.getColumnIndex(filePathColumn[0]);
                         String photoPath = cursor.getString(imagenIndex);
-
+                        profileViewModel.uploadPhoto(photoPath);
                         cursor.close();
                     }
                 }
