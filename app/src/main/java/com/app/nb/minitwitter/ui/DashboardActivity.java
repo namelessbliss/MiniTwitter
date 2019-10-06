@@ -1,12 +1,17 @@
 package com.app.nb.minitwitter.ui;
 
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -113,8 +118,34 @@ public class DashboardActivity extends AppCompatActivity implements PermissionLi
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_CANCELED) {
+            if (requestCode == Constants.SELECT_PHOTO_GALLERY) {
+                if (data != null) {
+
+                    Uri imagenSeleccionada = data.getData(); //content://gallery/photos/...
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                    Cursor cursor = getContentResolver().query(imagenSeleccionada, filePathColumn, null, null, null);
+
+                    if (cursor != null) {
+                        cursor.moveToFirst();
+                        int imagenIndex = cursor.getColumnIndex(filePathColumn[0]);
+                        String photoPath = cursor.getString(imagenIndex);
+
+                        cursor.close();
+                    }
+                }
+            }
+
+        }
+    }
+
+    @Override
     public void onPermissionGranted(PermissionGrantedResponse response) {
         //Invoca la seleccion de fotos de la galeria
+        Intent seleccionarFoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(seleccionarFoto, Constants.SELECT_PHOTO_GALLERY);
     }
 
     @Override

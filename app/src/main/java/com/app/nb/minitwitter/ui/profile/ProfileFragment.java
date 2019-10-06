@@ -138,7 +138,7 @@ public class ProfileFragment extends Fragment {
     private void checkPermissions() {
         PermissionListener dialogOnDeniedPermissionListener = DialogOnDeniedPermissionListener.Builder.withContext(getActivity())
                 .withTitle("Permiso Rechazado")
-                .withMessage("El permiso necesario para seleccionar foto")
+                .withMessage("El permiso es necesario para seleccionar foto")
                 .withButtonText("Aceptar")
                 .withIcon(R.mipmap.ic_launcher)
                 .build();
