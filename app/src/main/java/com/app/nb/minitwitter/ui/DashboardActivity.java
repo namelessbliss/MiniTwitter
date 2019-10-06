@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,8 +20,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 
-public class DashboardActivity extends AppCompatActivity {
+public class DashboardActivity extends AppCompatActivity implements PermissionListener {
 
     private FloatingActionButton fab;
     private ImageView ivAvatar;
@@ -106,4 +112,18 @@ public class DashboardActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onPermissionGranted(PermissionGrantedResponse response) {
+        //Invoca la seleccion de fotos de la galeria
+    }
+
+    @Override
+    public void onPermissionDenied(PermissionDeniedResponse response) {
+        Toast.makeText(this, "No se puede tener acceso a las fotos", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+
+    }
 }
