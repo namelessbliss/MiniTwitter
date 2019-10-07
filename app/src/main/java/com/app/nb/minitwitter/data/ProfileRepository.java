@@ -101,6 +101,7 @@ public class ProfileRepository {
             public void onResponse(Call<ResponseUploadPhoto> call, Response<ResponseUploadPhoto> response) {
                 if (response.isSuccessful()) {
                     SharedPreferencesManager.setStringValue(Constants.PREF_PHOTO_URL, response.body().getFilename());
+                    //TODO Revisar Runtime exc (You cannot start a load on a not yet attached View or a Fragment where getActivity() returns null (which usually occurs when getActivity() is called before the Fragment is attached or after the Fragment is destroyed).)
                     photoProfile.setValue(response.body().getFilename());
                 } else {
                     Toast.makeText(MyApp.getContext(), "Algo salió mal", Toast.LENGTH_SHORT).show();
@@ -114,7 +115,7 @@ public class ProfileRepository {
         });
     }
 
-    public MutableLiveData<String> getPhotoProfile(){
+    public MutableLiveData<String> getPhotoProfile() {
         return photoProfile;
     }
 

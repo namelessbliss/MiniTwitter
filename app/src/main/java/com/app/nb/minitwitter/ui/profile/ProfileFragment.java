@@ -132,10 +132,12 @@ public class ProfileFragment extends Fragment {
         });
 
         //Observar cambio del photoProfile
+        //TODO Revisar Runtime exc (You cannot start a load on a not yet attached View or a Fragment where getActivity() returns null (which usually occurs when getActivity() is called before the Fragment is attached or after the Fragment is destroyed).)
         profileViewModel.photoProfile.observe(getActivity(), new Observer<String>() {
             @Override
             public void onChanged(String photo) {
                 if (!photo.isEmpty()) {
+                    //TODO Revisar Runtime exc (You cannot start a load on a not yet attached View or a Fragment where getActivity() returns null (which usually occurs when getActivity() is called before the Fragment is attached or after the Fragment is destroyed).)
                     Glide.with(getActivity())
                             .load(Constants.API_MINITWIITER_FILES_URL + photo)
                             .dontAnimate()
