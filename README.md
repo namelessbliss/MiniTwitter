@@ -19,9 +19,9 @@ Aplicativo que consume la API de Minitwitter (https://www.minitwitter.com:3001/a
 	<tr>
 		<td><img src="https://github.com/namelessbliss/MiniTwitter/blob/master/capturas/6.PNG" ></td>
 		<td><img src="https://github.com/namelessbliss/MiniTwitter/blob/master/capturas/7.PNG" ></td>
-		<td><img src="https://github.com/namelessbliss/MiniTwitter/blob/master/capturas/7.PNG" ></td>
-		<td><img src="https://github.com/namelessbliss/MiniTwitter/blob/master/capturas/7.PNG" ></td>
-		<td><img src="https://github.com/namelessbliss/MiniTwitter/blob/master/capturas/7.PNG" ></td>
+		<td><img src="https://github.com/namelessbliss/MiniTwitter/blob/master/capturas/8.PNG" ></td>
+		<td><img src="https://github.com/namelessbliss/MiniTwitter/blob/master/capturas/9.PNG" ></td>
+		<td><img src="https://github.com/namelessbliss/MiniTwitter/blob/master/capturas/10.PNG" ></td>
 	</tr>
 	<tr>
 		<td><img src="https://github.com/namelessbliss/MiniTwitter/blob/master/capturas/11.PNG" ></td>
