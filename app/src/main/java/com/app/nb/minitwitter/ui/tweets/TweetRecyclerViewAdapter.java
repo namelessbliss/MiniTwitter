@@ -19,6 +19,7 @@ import com.app.nb.minitwitter.data.TweetViewModel;
 import com.app.nb.minitwitter.retrofit.response.Like;
 import com.app.nb.minitwitter.retrofit.response.Tweet;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.List;
 
@@ -58,7 +59,11 @@ public class TweetRecyclerViewAdapter extends RecyclerView.Adapter<TweetRecycler
             if (!photoUrl.equals("")) {
                 //Cargando imagen con Glide
                 Glide.with(context)
-                        .load("https://www.minitwitter.com/apiv1/uploads/photos/" + photoUrl)
+                        .load(Constants.API_MINITWIITER_FILES_URL + photoUrl)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .dontAnimate()
+                        .skipMemoryCache(true)
+                        .placeholder(R.drawable.ic_account_circle_grey_24dp)
                         .into(holder.ivAvatar);
             }
 
@@ -96,6 +101,8 @@ public class TweetRecyclerViewAdapter extends RecyclerView.Adapter<TweetRecycler
                 if (like.getUsername().equals(username)) {
                     Glide.with(context)
                             .load(R.drawable.ic_like_purple)
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .dontAnimate()
                             .into(holder.ivLike);
                     // Cambia el color del contador de likes
                     holder.tvLikeCount.setTextColor(context.getResources().getColor(R.color.purple));

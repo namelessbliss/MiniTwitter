@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.app.nb.minitwitter.R;
@@ -121,6 +122,18 @@ public class DashboardActivity extends AppCompatActivity implements PermissionLi
                     .centerCrop()
                     .into(ivAvatar);
         }
+
+        profileViewModel.photoProfile.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String photo) {
+                Glide.with(DashboardActivity.this)
+                        .load(Constants.API_MINITWIITER_FILES_URL + photo)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true)
+                        .centerCrop()
+                        .into(ivAvatar);
+            }
+        });
     }
 
     @Override

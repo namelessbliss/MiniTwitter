@@ -112,7 +112,10 @@ public class ProfileRepository {
                 Toast.makeText(MyApp.getContext(), "Error en la conexion", Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
+    public MutableLiveData<String> getPhotoProfile(){
+        return photoProfile;
     }
 
 }

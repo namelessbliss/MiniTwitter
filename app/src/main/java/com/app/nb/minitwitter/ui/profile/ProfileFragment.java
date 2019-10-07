@@ -45,8 +45,8 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        profileViewModel = ViewModelProviders.of(this).get(ProfileViewModel.class);
+        // El contexto debe ser el del activity
+        profileViewModel = ViewModelProviders.of(getActivity()).get(ProfileViewModel.class);
     }
 
     @Override
@@ -91,7 +91,7 @@ public class ProfileFragment extends Fragment {
         btnChangePass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO
+                //TODO establecer cambio de contraseña
             }
         });
 
@@ -122,13 +122,28 @@ public class ProfileFragment extends Fragment {
                 if (!responseUserProfile.getPhotoUrl().isEmpty()) {
                     Glide.with(getActivity())
                             .load(Constants.API_MINITWIITER_FILES_URL + responseUserProfile.getPhotoUrl())
-                            .dontAnimate()
                             .diskCacheStrategy(DiskCacheStrategy.NONE)
                             .skipMemoryCache(true)
                             .centerCrop()
                             .into(ivAvatar);
                 }
                 firstLoadingData = false;
+            }
+        });
+
+        //Observar cambio del photoProfile
+        profileViewModel.photoProfile.observe(getActivity(), new Observer<String>() {
+            @Override
+            public void onChanged(String photo) {
+                if (!photo.isEmpty()) {
+                    Glide.with(getActivity())
+                            .load(Constants.API_MINITWIITER_FILES_URL + photo)
+                            .dontAnimate()
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .skipMemoryCache(true)
+                            .centerCrop()
+                            .into(ivAvatar);
+                }
             }
         });
 

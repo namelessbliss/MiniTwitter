@@ -13,11 +13,13 @@ public class ProfileViewModel extends AndroidViewModel {
 
     public ProfileRepository profileRepository;
     public LiveData<ResponseUserProfile> userProfileLiveData;
+    public LiveData<String> photoProfile;
 
     public ProfileViewModel(@NonNull Application application) {
         super(application);
         profileRepository = new ProfileRepository();
         userProfileLiveData = profileRepository.getProfile();
+        photoProfile = profileRepository.getPhotoProfile();
     }
 
     public void updateProfile(RequestUserProfile requestUserProfile) {
